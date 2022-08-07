@@ -1,0 +1,13 @@
+To get the list of product with supplier Name
+
+http://localhost:8080/product/all/CIPLA/0/20
+
+Upload the CSV file 
+
+http://localhost:8080/upload/csv   -- add the file request body 
+
+All Active products 
+
+http://localhost:8080/upload/csv
+
+
