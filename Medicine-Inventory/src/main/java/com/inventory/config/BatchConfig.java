@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 @EnableBatchProcessing
 public class BatchConfig {
 
-    private final String[] FIELD_NMAE = new String[]{"code", "name", "batch", "stock", "deal", "free", "mrp", "rate",
+    private final String[] FIELD_NAME = new String[]{"code", "name", "batch", "stock", "deal", "free", "mrp", "rate",
             "exp", "company", "supplier"};
 
     @Autowired
@@ -40,7 +40,7 @@ public class BatchConfig {
     public FlatFileItemReader<ProductInput> reader() {
         return new FlatFileItemReaderBuilder<ProductInput>().
                 name("productItemReader").resource(
-                        new ClassPathResource("medicineInput.csv")).delimited().names(FIELD_NMAE).
+                        new ClassPathResource("medicineInput.csv")).delimited().names(FIELD_NAME).
                 fieldSetMapper(new BeanWrapperFieldSetMapper<ProductInput>() {{
             setTargetType(ProductInput.class);
         }}).build();
@@ -61,8 +61,8 @@ public class BatchConfig {
     }
 
     @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
-        return jobBuilderFactory.get("importUserJob")
+    public Job importDataJob(JobCompletionNotificationListener listener, Step step1) {
+        return jobBuilderFactory.get("importDataJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(step1)
