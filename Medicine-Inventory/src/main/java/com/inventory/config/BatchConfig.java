@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 import javax.sql.DataSource;
 
@@ -40,7 +41,8 @@ public class BatchConfig {
     public FlatFileItemReader<ProductInput> reader() {
         return new FlatFileItemReaderBuilder<ProductInput>().
                 name("productItemReader").resource(
-                        new ClassPathResource("medicineInput.csv")).delimited().names(FIELD_NAME).
+                        new FileSystemResource("C:\\Users\\rparjapati\\git\\Medicine-Inventory\\Medicine-Inventory\\src\\main\\resources\\medicineInput.csv")).
+                linesToSkip(1).delimited().names(FIELD_NAME).
                 fieldSetMapper(new BeanWrapperFieldSetMapper<ProductInput>() {{
             setTargetType(ProductInput.class);
         }}).build();
